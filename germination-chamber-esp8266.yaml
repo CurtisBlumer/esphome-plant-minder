@@ -25,6 +25,7 @@ logger:
 
 # API is a requirement of the dashboard import.
 api:
+  reboot_timeout : 0s
 
 # OTA is required for Over-the-Air updating
 ota:
@@ -61,22 +62,7 @@ button:
   - platform: restart
     name: "Restart"
 
-output:
-  - platform: gpio
-    id: gpio2
-    pin: GPIO2
-
-  - platform: gpio
-    id: gpio14
-    pin: GPIO14
-
-light:
-  - platform: binary
-    id: led1
-    name: LED1
-    output: gpio2
-
-  - platform: binary
-    id: led2
-    name: LED2
-    output: gpio14
+status_led:
+  pin:
+    number: GPIO2
+    inverted: true
