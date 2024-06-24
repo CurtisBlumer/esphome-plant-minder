@@ -1,9 +1,13 @@
 # These substitutions allow the end user to override certain values
 substitutions:
   name: "germination-chamber"
+  friendly_name: "Germination Chamber"
+  comment: A box for germinating plants
 
 esphome:
   name: "${name}"
+  friendly_name: "${friendly_name}"
+  comment: "${comment}"
   # Automatically add the mac address to the name
   # so you can use a single firmware for all devices
   name_add_mac_suffix: true
@@ -12,7 +16,7 @@ esphome:
   # configuration and updates.
   project:
     name: "cblumer.plant-minder"
-    version: "0.0.2-dev"
+    version: "0.0.3-dev"
 
 esp8266:
   board: d1_mini
