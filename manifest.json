@@ -1,31 +1,18 @@
 {
-  "name": "Project Template",
+  "name": "Germination Chamber",
   "version": "",
   "home_assistant_domain": "esphome",
   "new_install_skip_erase": false,
   "builds": [
     {
-      "chipFamily": "ESP32",
-      "ota": {
-        "path": "project-template-esp32/project-template-esp32.ota.bin",
-        "md5": "59d416b206405afb550c4a5567722ff0"
-      },
-      "parts": [
-        {
-          "path": "project-template-esp32/project-template-esp32.factory.bin",
-          "offset": 0
-        }
-      ]
-    },
-    {
       "chipFamily": "ESP8266",
       "ota": {
-        "path": "project-template-esp8266/project-template-esp8266.ota.bin",
-        "md5": "9de1d62b8337f3da9afa9d3bafdabf7d"
+        "path": "germination-chamber-esp8266/germination-chamber-esp8266.ota.bin",
+        "md5": "24c1112f3fc4614158708e63774e580f"
       },
       "parts": [
         {
-          "path": "project-template-esp8266/project-template-esp8266.factory.bin",
+          "path": "germination-chamber-esp8266/germination-chamber-esp8266.factory.bin",
           "offset": 0
         }
       ]
