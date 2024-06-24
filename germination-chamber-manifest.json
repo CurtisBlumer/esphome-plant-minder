@@ -1,0 +1,21 @@
+{
+  "name": "Germination Chamber",
+  "version": "",
+  "home_assistant_domain": "esphome",
+  "new_install_skip_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP8266",
+      "ota": {
+        "path": "germination-chamber-esp8266/germination-chamber-esp8266.ota.bin",
+        "md5": "5b4aab36f29672b1d282c1458acf683b"
+      },
+      "parts": [
+        {
+          "path": "germination-chamber-esp8266/germination-chamber-esp8266.factory.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
