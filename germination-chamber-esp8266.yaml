@@ -24,7 +24,6 @@ logger:
 
 # API is a requirement of the dashboard import.
 api:
-  reboot_timeout : 0s
 
 # OTA is required for Over-the-Air updating
 ota:
@@ -64,4 +63,4 @@ button:
 status_led:
   pin:
     number: GPIO2
-    inverted: true
+    inverted: false
