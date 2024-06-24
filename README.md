@@ -1,12 +1,10 @@
-# ESPHome Project Template
+# Plant Minder
 
-This repo serves as a template for creating a new ESPHome project.
-
-It includes a GitHub workflow that will automatically build the configuration(s) and then deploys a simple 
+This repo was forked from the esphome-project-template and includes a GitHub workflow that will automatically build the configuration(s) and then deploys a simple 
 website via GitHub pages that utilises [ESP Web Tools](https://esphome.github.io/esp-web-tools/) for users to 
 easily install your project onto their device.
 
-## Instructions
+## Original Instructions
 
 1. Use this repo template to [generate](https://github.com/esphome/esphome-project-template/generate) your own repository.
    - Make sure to check `Include all branches` so that GitHub Pages is automatically enabled.
