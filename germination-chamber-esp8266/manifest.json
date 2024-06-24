@@ -2,7 +2,7 @@
   "chipFamily": "ESP8266",
   "ota": {
     "path": "germination-chamber-esp8266/germination-chamber-esp8266.ota.bin",
-    "md5": "5b4aab36f29672b1d282c1458acf683b"
+    "md5": "bcd1c419d5cbcd4183a2e8b238d380da"
   },
   "parts": [
     {
