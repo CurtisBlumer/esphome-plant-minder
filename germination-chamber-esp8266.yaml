@@ -1,7 +1,6 @@
 # These substitutions allow the end user to override certain values
 substitutions:
   name: "germination-chamber"
-  version: 0.0.1-dev
 
 esphome:
   name: "${name}"
@@ -12,8 +11,8 @@ esphome:
   # This will allow for (future) project identification,
   # configuration and updates.
   project:
-    name: "esphome.${name}"
-    version: "${version}"
+    name: "cblumer.plant-minder"
+    version: "0.0.2-dev"
 
 esp8266:
   board: d1_mini
