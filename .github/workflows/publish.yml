@@ -14,7 +14,8 @@ jobs:
       files: project-template-esp32.yaml,project-template-esp8266.yaml
       # CHANGEME: Set the name of your project here:
       name: Project Template
-      #manifest_filename: project-template-manifest.json
+      clean: false
+      manifest_filename: project-template-manifest.json
   germination-chamber:
     name: Publish Germination Chamber
     uses: esphome/workflows/.github/workflows/publish.yml@dependabot/github_actions/esphome/build-action-3.1.0
@@ -23,4 +24,5 @@ jobs:
       files: germination-chamber-esp8266.yaml
       # CHANGEME: Set the name of your project here:
       name: Germination Chamber
-      #manifest_filename: germination-chamber-manifest.json
+      clean: false
+      manifest_filename: germination-chamber-manifest.json
