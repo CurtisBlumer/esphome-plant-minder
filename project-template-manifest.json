@@ -1,0 +1,34 @@
+{
+  "name": "Project Template",
+  "version": "",
+  "home_assistant_domain": "esphome",
+  "new_install_skip_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "ota": {
+        "path": "project-template-esp32/project-template-esp32.ota.bin",
+        "md5": "79ecba15de423b0f85fe31d613697e3a"
+      },
+      "parts": [
+        {
+          "path": "project-template-esp32/project-template-esp32.factory.bin",
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "chipFamily": "ESP8266",
+      "ota": {
+        "path": "project-template-esp8266/project-template-esp8266.ota.bin",
+        "md5": "f1c1980ad9d537285a126d18ae853c60"
+      },
+      "parts": [
+        {
+          "path": "project-template-esp8266/project-template-esp8266.factory.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
