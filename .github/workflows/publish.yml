@@ -13,4 +13,4 @@ jobs:
       files: project-template-esp32.yaml,project-template-esp8266.yaml
       # CHANGEME: Set the name of your project here:
       name: Project Template
-      directory_name: project-template
+      #directory_name: project-template
