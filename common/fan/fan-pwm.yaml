@@ -60,8 +60,8 @@ globals:
 # https://esphome.io/components/number
 number:
   - platform: template
-    name: "${fan_name} Frequency"
-    id: ${fan_id}_frequency
+    name: "${name} Frequency"
+    id: ${id}_frequency
     disabled_by_default: true
     entity_category: config
     unit_of_measurement: Hz
@@ -71,7 +71,7 @@ number:
     step: 1
     set_action:
       - output.${pwm_platform}.set_frequency:
-          id: ${fan_id}_output
+          id: ${id}_output
           frequency: !lambda return x;
     update_interval: never
     optimistic: true
@@ -79,8 +79,8 @@ number:
     initial_value: ${pwm_frequency}
 
   - platform: template
-    name: "${fan_name} Start Threshold"
-    id: ${fan_id}_start_threshold
+    name: "${name} Start Threshold"
+    id: ${id}_start_threshold
     disabled_by_default: true
     entity_category: config
     unit_of_measurement: "%"
