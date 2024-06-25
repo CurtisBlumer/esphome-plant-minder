@@ -45,11 +45,53 @@ esphome:
           id: ${id}_output
           frequency: !lambda return id(${id}_frequency).state;
 
+packages:
+  fan-base: !include
+    file: fan-base.yaml
+    vars:
+      id: ${id}
+
 # https://esphome.io/guides/automations#global-variables
 globals:
   - id: ${id}_startup_speed
     type: int
     restore_value: no
+
+# https://esphome.io/components/number
+number:
+  - platform: template
+    name: "${fan_name} Frequency"
+    id: ${fan_id}_frequency
+    disabled_by_default: true
+    entity_category: config
+    unit_of_measurement: Hz
+    device_class: frequency
+    min_value: 100
+    max_value: 40000
+    step: 1
+    set_action:
+      - output.${pwm_platform}.set_frequency:
+          id: ${fan_id}_output
+          frequency: !lambda return x;
+    update_interval: never
+    optimistic: true
+    restore_value: true
+    initial_value: ${pwm_frequency}
+
+  - platform: template
+    name: "${fan_name} Start Threshold"
+    id: ${fan_id}_start_threshold
+    disabled_by_default: true
+    entity_category: config
+    unit_of_measurement: "%"
+    device_class: ""
+    min_value: 0
+    max_value: ${speed_count}
+    step: 1
+    update_interval: never
+    optimistic: true
+    restore_value: true
+    initial_value: ${speed_count}
 
 # https://esphome.io/components/output
 output:
@@ -65,21 +107,6 @@ output:
     min_power: ${pwm_min_power}
     max_power: ${pwm_max_power}
     zero_means_zero: true
-
-script:
-  - id: ${id}_on_preset_set
-    parameters: 
-      preset_mode: string
-      fan_speed: int
-    then:
-      - logger.log:
-          format: Preset mode %s found, setting fan speed to %d
-          args: [ preset_mode.c_str(), fan_speed ]
-          level: DEBUG
-          tag: ${id}
-      - fan.turn_on:
-          id: ${id}
-          speed: !lambda return fan_speed;
 
 # https://esphome.io/components/fan
 fan:
@@ -130,15 +157,15 @@ fan:
             lambda: return x == "${quiet_preset_name}";
           then:
             - script.execute:
-                id: ${id}_on_preset_set
-                preset_mode: "Quiet"
-                fan_speed: "${quiet_preset_speed}"
+                id: on_preset_set
+                preset_mode: ${quiet_preset_name}
+                fan_speed: ${quiet_preset_speed}
       - if:
           condition:
             lambda: return x == "${low_preset_name}";
           then:
             - script.execute:
-                id: ${id}_on_preset_set
+                id: on_preset_set
                 preset_mode: ${low_preset_name}
                 fan_speed: ${low_preset_speed}
       - if:
@@ -146,7 +173,7 @@ fan:
             lambda: return x == "${medium_preset_name}";
           then:
             - script.execute:
-                id: ${id}_on_preset_set
+                id: on_preset_set
                 preset_mode: ${medium_preset_name}
                 fan_speed: ${medium_preset_speed}
       - if:
@@ -154,6 +181,23 @@ fan:
             lambda: return x == "${high_preset_name}";
           then:
             - script.execute:
-                id: ${id}_on_preset_set
+                id: on_preset_set
                 preset_mode: ${high_preset_name}
                 fan_speed: ${high_preset_speed}
+
+# script:
+#   - id: ${id}_on_preset_set
+#     parameters: 
+#       preset_mode: string
+#       fan_speed: int
+#     then:
+#       - logger.log:
+#           format: Preset mode %s found, setting fan speed to %d
+#           args:
+#             - preset_mode.c_str()
+#             - fan_speed
+#           level: DEBUG
+#           tag: ${id}
+#       - fan.turn_on:
+#           id: ${id}
+#           speed: !lambda return fan_speed;

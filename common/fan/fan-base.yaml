@@ -1,0 +1,16 @@
+script:
+  - id: on_preset_set
+    parameters: 
+      preset_mode: string
+      fan_speed: int
+    then:
+      - logger.log:
+          format: Preset mode %s found, setting fan speed to %d
+          args:
+            - preset_mode.c_str()
+            - fan_speed
+          level: DEBUG
+          tag: ${id}
+      - fan.turn_on:
+          id: ${id}
+          speed: !lambda return fan_speed;
