@@ -36,18 +36,18 @@ esphome:
     priority: -100
     then:
       - logger.log:
-          format: "Setting ${fan_name} Frequency to %-.0f"
+          format: "Setting ${name} Frequency to %-.0f"
           args:
-            - id(${fan_id}_frequency).state
+            - id(${id}_frequency).state
           level: INFO
-          tag: ${fan_id}
+          tag: ${id}
       - output.esp8266_pwm.set_frequency:
-          id: ${fan_id}_output
-          frequency: !lambda return id(${fan_id}_frequency).state;
+          id: ${id}_output
+          frequency: !lambda return id(${id}_frequency).state;
 
 # https://esphome.io/guides/automations#global-variables
 globals:
-  - id: ${fan_id}_startup_speed
+  - id: ${id}_startup_speed
     type: int
     restore_value: no
 
@@ -57,7 +57,7 @@ output:
     # https://esphome.io/components/output/esp8266_pwm
     # https://esphome.io/components/output/libretiny_pwm
   - platform: ${pwm_platform}
-    id: ${fan_id}_output
+    id: ${id}_output
     pin:
         number: ${pin}
         inverted: ${pin_inverted}
@@ -67,7 +67,7 @@ output:
     zero_means_zero: true
 
 script:
-  - id: ${fan_id}_on_preset_set_logger
+  - id: ${id}_preset_set
     parameters: 
       preset_mode: string
       fan_speed: int
@@ -76,15 +76,18 @@ script:
           format: Preset mode %s found, setting fan speed to %d
           args: [ preset_mode.c_str(), fan_speed ]
           level: DEBUG
-          tag: ${fan_id}
+          tag: ${id}
+      - fan.turn_on:
+          id: ${id}
+          speed: !lambda return fan_speed;
 
 # https://esphome.io/components/fan
 fan:
   # https://esphome.io/components/fan/speed
   - platform: speed
-    output: ${fan_id}_output
-    name: ${fan_name}
-    id: ${fan_id}
+    output: ${id}_output
+    name: ${name}
+    id: ${id}
     speed_count: ${speed_count}
     restore_mode: ${restore_mode}
     #icon: ${icon}
@@ -96,73 +99,61 @@ fan:
       - ${off_preset_name}
     on_turn_on:
       - logger.log:
-          format: ${fan_name} turned on
+          format: ${name} turned on
           level: INFO
-          tag: ${fan_id}
+          tag: ${id}
     on_turn_off:
       - logger.log:
-          format: ${fan_name} turned off
+          format: ${name} turned off
           level: INFO
-          tag: ${fan_id}
+          tag: ${id}
     on_speed_set:
       - logger.log:
-          format: ${fan_name} speed was changed to %d
+          format: ${name} speed was changed to %d
           args:
             - x
           level: INFO
-          tag: ${fan_id}
+          tag: ${id}
     on_preset_set:
       - if:
           condition:
             lambda: return x != "";
           then:
             - logger.log:
-                format: ${fan_name} preset mode was changed to "%s"
+                format: ${name} preset mode was changed to "%s"
                 args:
                   - x.c_str()
                 level: INFO
-                tag: ${fan_id}
+                tag: ${id}
       - if:
           condition:
             lambda: return x == "${quiet_preset_name}";
           then:
             - script.execute:
-                id: ${fan_id}_on_preset_set_logger
+                id: ${id}_preset_set
                 preset_mode: "Quiet"
                 fan_speed: "${quiet_preset_speed}"
-            - fan.turn_on:
-                id: ${fan_id}
-                speed: ${quiet_preset_speed}
       - if:
           condition:
             lambda: return x == "${low_preset_name}";
           then:
             - script.execute:
-                id: ${fan_id}_on_preset_set_logger
+                id: ${id}_on_preset_set_logger
                 preset_mode: ${low_preset_name}
                 fan_speed: ${low_preset_speed}
-            - fan.turn_on:
-                id: ${fan_id}
-                speed: ${low_preset_speed}
       - if:
           condition:
             lambda: return x == "${medium_preset_name}";
           then:
             - script.execute:
-                id: ${fan_id}_on_preset_set_logger
+                id: ${id}_on_preset_set_logger
                 preset_mode: ${medium_preset_name}
                 fan_speed: ${medium_preset_speed}
-            - fan.turn_on:
-                id: ${fan_id}
-                speed: ${medium_preset_speed}
       - if:
           condition:
             lambda: return x == "${high_preset_name}";
           then:
             - script.execute:
-                id: ${fan_id}_on_preset_set_logger
+                id: ${id}_on_preset_set_logger
                 preset_mode: ${high_preset_name}
                 fan_speed: ${high_preset_speed}
-            - fan.turn_on:
-                id: ${fan_id}
-                speed: ${high_preset_speed}
