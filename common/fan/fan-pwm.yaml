@@ -67,7 +67,7 @@ output:
     zero_means_zero: true
 
 script:
-  - id: ${id}_preset_set
+  - id: ${id}_on_preset_set
     parameters: 
       preset_mode: string
       fan_speed: int
@@ -130,7 +130,7 @@ fan:
             lambda: return x == "${quiet_preset_name}";
           then:
             - script.execute:
-                id: ${id}_preset_set
+                id: ${id}_on_preset_set
                 preset_mode: "Quiet"
                 fan_speed: "${quiet_preset_speed}"
       - if:
@@ -138,7 +138,7 @@ fan:
             lambda: return x == "${low_preset_name}";
           then:
             - script.execute:
-                id: ${id}_on_preset_set_logger
+                id: ${id}_on_preset_set
                 preset_mode: ${low_preset_name}
                 fan_speed: ${low_preset_speed}
       - if:
@@ -146,7 +146,7 @@ fan:
             lambda: return x == "${medium_preset_name}";
           then:
             - script.execute:
-                id: ${id}_on_preset_set_logger
+                id: ${id}_on_preset_set
                 preset_mode: ${medium_preset_name}
                 fan_speed: ${medium_preset_speed}
       - if:
@@ -154,6 +154,6 @@ fan:
             lambda: return x == "${high_preset_name}";
           then:
             - script.execute:
-                id: ${id}_on_preset_set_logger
+                id: ${id}_on_preset_set
                 preset_mode: ${high_preset_name}
                 fan_speed: ${high_preset_speed}
