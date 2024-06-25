@@ -24,13 +24,13 @@ dashboard_import:
   import_full_config: true
 
 packages:
-  - status_led: !include
+  status_led: !include
     file: common/base-esp8266.yaml
     vars:
       esp8266_board: d1_mini
       status_led_pin: D3
   
-  - intake_fan: !include
+  intake_fan: !include
     file: common/fan/fan-pwm.yaml
     vars:
       pwm_platform: esp8266_pwm
