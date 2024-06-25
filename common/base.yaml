@@ -1,0 +1,42 @@
+defaults:
+  logger_level: "DEBUG"
+
+# To be able to get logs from the device via serial and api.
+logger:
+  level: ${logger_level}
+
+# API is a requirement of the dashboard import.
+api:
+
+# OTA is required for Over-the-Air updating
+ota:
+  - platform: esphome
+
+wifi:
+  # Set up a wifi access point using the device name above
+  ap:
+    password: "12345678"
+
+# In combination with the `ap` this allows the user
+# to provision wifi credentials to the device.
+captive_portal:
+
+web_server:
+
+# Sets up the improv via serial client for Wi-Fi provisioning.
+# Handy if your device has a usb port for the user to add credentials when they first get it.
+improv_serial:
+
+# Status LED
+status_led:
+  pin: ${status_led_pin}
+
+button:
+  # Restart button
+  - platform: restart
+    name: "Restart"
+
+binary_sensor:
+  # Home Assistant Status Sensor
+  - platform: status
+    name: "Home Assistant Status"

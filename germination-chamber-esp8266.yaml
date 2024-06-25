@@ -16,63 +16,24 @@ esphome:
   # configuration and updates.
   project:
     name: "cblumer.plant-minder"
-    version: "0.0.3-dev"
-
-esp8266:
-  board: d1_mini
-  restore_from_flash: true
-  early_pin_init: false
-
-# To be able to get logs from the device via serial and api.
-logger:
-
-# API is a requirement of the dashboard import.
-api:
-
-# OTA is required for Over-the-Air updating
-ota:
-  - platform: esphome
+    version: "0.0.4-dev"
 
 # This should point to the public location of this yaml file.
 dashboard_import:
   package_import_url: github://CurtisBlumer/esphome-plant-minder/germination-chamber-esp8266.yaml@main
   import_full_config: true
 
-wifi:
-  # Set up a wifi access point using the device name above
-  ap:
-    password: "12345678"
-
-# In combination with the `ap` this allows the user
-# to provision wifi credentials to the device.
-captive_portal:
-
-
-##########################################################
-# Most projects should not remove anything from above here
-# and should just modify the name, project name/version 
-# and git url for the dashboard_import
-##########################################################
-
-
-# Sets up the improv via serial client for Wi-Fi provisioning.
-# Handy if your device has a usb port for the user to add credentials when they first get it.
-improv_serial:
-
-web_server:
-
-button:
-  - platform: restart
-    name: "Restart"
-
-output:
-  - platform: gpio
-    id: gpio2
-    pin:
-      number: GPIO2
-      inverted: true
-
-light:
-  - platform: status_led
-    name: Status LED
-    output: gpio2
+packages:
+  - status_led: !include
+    file: common/base-esp8266.yaml
+    vars:
+      esp8266_board: d1_mini
+      status_led_pin: D3
+  
+  - intake_fan: !include
+    file: common/fan/fan-pwm.yaml
+    vars:
+      pwm_platform: esp8266_pwm
+      pin: D0
+      id: intake_fan
+      name: Intake Fan
