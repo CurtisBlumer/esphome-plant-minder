@@ -8,7 +8,7 @@
       "chipFamily": "ESP32",
       "ota": {
         "path": "project-template-esp32/project-template-esp32.ota.bin",
-        "md5": "ef3fbe4b0278c68427302682ca46cd01"
+        "md5": "729032391fb6f4b9e5b6ffcd667b9d79"
       },
       "parts": [
         {
@@ -21,7 +21,7 @@
       "chipFamily": "ESP8266",
       "ota": {
         "path": "project-template-esp8266/project-template-esp8266.ota.bin",
-        "md5": "b7b494e09915c72337e4a8be5ad2c031"
+        "md5": "45d929e4f5b637ec7b9836a5c2af5df6"
       },
       "parts": [
         {
